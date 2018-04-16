@@ -72,6 +72,7 @@ class PaymentTest extends TestCase {
         ])->assertStatus(Response::HTTP_CREATED);
 
 
+        //Asset that only one column has been updated.
         $this->assertEquals(1, $john->orders()->wherePivot('paid_at', '!=', null)->count());
         $this->assertEquals(1, $jeffery->orders()->wherePivot('paid_at', '=', null)->count());
     }
