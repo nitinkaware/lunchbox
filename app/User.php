@@ -23,6 +23,11 @@ class User extends Authenticatable {
         return $this->belongsToMany(Order::class)->withPivot('paid_at');
     }
 
+    public static function findByEmail($email)
+    {
+        return self::where('email', $email)->firstOrFail();
+    }
+
     public function owesForOrder($orderId): float
     {
         $orderId = $orderId instanceof Order ? $orderId->getKey() : $orderId;
@@ -40,9 +45,10 @@ class User extends Authenticatable {
         /** @var Collection $orders */
         $orders = $this->orders()->forMeal($mealId)->get();
 
-        return $orders->map(function($order) {
+        return $orders->map(function ($order) {
             /** @var Order $order */
             $order['owes'] = $order->owes();
+
             return $order;
         })->sum('owes');
     }
