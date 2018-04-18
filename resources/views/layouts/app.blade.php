@@ -71,5 +71,6 @@
             @yield('content')
         </main>
     </div>
+    @routes
 </body>
 </html>

@@ -8,8 +8,8 @@ use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 
-class OrderTest extends TestCase
-{
+class OrderTest extends TestCase {
+
     use DatabaseMigrations;
 
     /** @test */
@@ -33,5 +33,19 @@ class OrderTest extends TestCase
         $order = factory(Order::class)->create();
         $this->assertInstanceOf(Meal::class, $order->meal()->first());
         $this->assertEquals(1, $order->meal()->count());
+    }
+
+    /** @test */
+    function an_owes_attributes_must_return_price()
+    {
+        /** @var Order $order */
+        $order = factory(Order::class)->create(['price' => 60]);
+        /** @var User $orders */
+        factory(User::class)->create()->orders()->attach($order->id);
+        factory(User::class)->create()->orders()->attach($order->id);
+        factory(User::class)->create()->orders()->attach($order->id);
+
+        $this->assertNotNull($order->owes);
+        $this->assertNotNull(data_get($order->toArray(), 'owes'));
     }
 }

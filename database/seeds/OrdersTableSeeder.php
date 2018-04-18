@@ -25,6 +25,7 @@ class OrdersTableSeeder extends Seeder {
         // Order meal which is shared between 2 people.
         factory(Order::class, 25)->create([
             'meal_id'  => $vegMean->id,
+            'price'    => $vegMean->price,
             'quantity' => 2,
         ])->each(function ($order) use ($nitin, $steven) {
             /** @var Order $order */
@@ -35,6 +36,7 @@ class OrdersTableSeeder extends Seeder {
         // Order meal which is shared between 3 people
         factory(Order::class, 25)->create([
             'meal_id'  => $vegMean->id,
+            'price'    => $vegMean->price,
             'quantity' => 2,
         ])->each(function ($order) use ($nitin, $steven, $dharmesh) {
             /** @var Order $order */
@@ -49,6 +51,7 @@ class OrdersTableSeeder extends Seeder {
 
         factory(Order::class, 25)->create([
             'meal_id'  => $breakfast->id,
+            'price'    => $breakfast->price,
             'quantity' => 1,
         ])->each(function ($order) use ($nitin) {
             /** @var Order $order */
