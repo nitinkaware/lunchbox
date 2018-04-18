@@ -44,6 +44,7 @@ if (token) {
  * allows your team to easily build robust real-time web applications.
  */
 
+window.collect = require('collect.js');
 // import Echo from 'laravel-echo'
 
 // window.Pusher = require('pusher-js');
