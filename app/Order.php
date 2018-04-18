@@ -14,7 +14,7 @@ class Order extends Model {
 
     protected $casts = [
         'quantity' => 'integer',
-        'price' => 'float',
+        'price'    => 'float',
     ];
 
     public function users()
@@ -44,6 +44,10 @@ class Order extends Model {
 
     public function shares(): int
     {
+        if ($this->relationLoaded('users')) {
+            return $this->users->count();
+        }
+
         return $this->users()->count();
     }
 
@@ -53,16 +57,5 @@ class Order extends Model {
             ($this->price() * $this->quantity()) / $this->shares(),
             2
         );
-    }
-
-    public function createTransaction($userId)
-    {
-        $userId = $userId instanceof User ? $userId->getKey() : $userId;
-
-        $transaction = new Transaction(['amount' => $this->price()]);
-        $transaction->user_id = $userId;
-        $transaction->save();
-
-        return $transaction;
     }
 }
