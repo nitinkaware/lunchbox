@@ -7,6 +7,7 @@ use App\Http\Resources\OrderHistoryCollection;
 use App\Jobs\CreateOrder;
 use App\Jobs\DeleteOrder;
 use App\Jobs\UpdateOrder;
+use App\Meal;
 use App\Order;
 use App\User;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,14 @@ class OrdersController extends Controller {
         }
 
         return view('orders.index', compact('orders'));
+    }
+
+    public function create()
+    {
+        $users = User::all();
+        $meals = Meal::all();
+
+        return view('orders.create', compact('users', 'meals'));
     }
 
     public function store(OrderRequest $request)

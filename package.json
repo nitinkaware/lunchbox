@@ -21,6 +21,7 @@
         "vuetable-2": "^1.7.5"
     },
     "dependencies": {
-        "collect.js": "^4.0.14"
+        "collect.js": "^4.0.14",
+        "vue-select": "^2.4.0"
     }
 }
