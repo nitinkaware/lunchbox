@@ -28,6 +28,16 @@ class User extends Authenticatable {
         return self::where('email', $email)->firstOrFail();
     }
 
+    public function oweTotal()
+    {
+        return $this->orders()->get()->map(function (Order $order) {
+            /** @var Order $order */
+            $order['owes'] = $order->owes();
+
+            return $order;
+        })->sum('owes');
+    }
+
     public function owesForOrder($orderId): float
     {
         $orderId = $orderId instanceof Order ? $orderId->getKey() : $orderId;

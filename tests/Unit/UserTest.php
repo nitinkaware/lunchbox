@@ -49,6 +49,14 @@ class UserTest extends TestCase {
         $this->assertEquals(180, $jeffery->owesForMeal($meal));
     }
 
+    /** @test */
+    function a_user_know_how_much_amount_it_owes_in_total()
+    {
+        list($john, $jeffery, $order, $meal) = $this->placeOrder(3);
+
+        $this->assertEquals(180, $john->oweTotal());
+    }
+
     /**
      * @param int $numberOfOrder
      *

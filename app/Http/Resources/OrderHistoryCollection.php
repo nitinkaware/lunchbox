@@ -19,7 +19,7 @@ class OrderHistoryCollection extends ResourceCollection {
     public function toArray($request)
     {
         return [
-            'data' => $this->collection->transform(function ($order) {
+            'data'      => $this->collection->transform(function ($order) {
                 /** @var Order $order */
                 return [
                     'id'             => $order->id,
@@ -35,8 +35,9 @@ class OrderHistoryCollection extends ResourceCollection {
                     'paid_at'        => $order->pivot->paid_at,
                 ];
             }),
-            'users' => User::all(),
-            'meals' => Meal::all()
+            'oweTotal' => round(auth()->user()->oweTotal(), 2),
+            'users'     => User::all(),
+            'meals'     => Meal::all(),
         ];
     }
 }

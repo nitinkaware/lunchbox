@@ -36,6 +36,7 @@
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Save</button>
+                <button type="button" class="btn btn-primary" @click="cancel">Cancel</button>
             </form>
         </div>
     </div>
@@ -71,6 +72,9 @@
                     console.log(error);
                 });
             },
+            cancel() {
+                this.$root.$emit('orderCancelled');
+            }
         }
     }
 </script>
