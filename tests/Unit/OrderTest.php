@@ -44,8 +44,7 @@ class OrderTest extends TestCase {
         factory(User::class)->create()->orders()->attach($order->id);
         factory(User::class)->create()->orders()->attach($order->id);
         factory(User::class)->create()->orders()->attach($order->id);
-
-        $this->assertNotNull($order->owes);
-        $this->assertNotNull(data_get($order->toArray(), 'owes'));
+        
+        $this->assertNotNull($order->owes());
     }
 }

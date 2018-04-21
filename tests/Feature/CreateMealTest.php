@@ -11,6 +11,13 @@ class CreateMealTest extends TestCase {
 
     use RefreshDatabase;
 
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->signIn();
+    }
+
     /** @test */
     function a_meal_requires_a_description()
     {

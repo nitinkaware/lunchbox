@@ -18,6 +18,8 @@ class OrderMealTest extends TestCase {
     {
         $users = factory(User::class, 4)->create();
 
+        $this->signIn($users->first());
+
         $this->postJson(route('orders.store'), [
             'meal_id' => null,
             'user_id' => $users->pluck('id'),
@@ -31,6 +33,8 @@ class OrderMealTest extends TestCase {
     {
         $users = factory(User::class, 4)->create();
 
+        $this->signIn($users->first());
+
         $this->postJson(route('orders.store'), [
             'meal_id' => 32,
             'user_id' => $users->pluck('id'),
@@ -42,6 +46,8 @@ class OrderMealTest extends TestCase {
     /** @test */
     function a_user_id_must_be_an_array_input_field()
     {
+        $this->signIn();
+
         $meal = factory(Meal::class)->create();
 
         $this->postJson(route('orders.store'), [
@@ -55,6 +61,8 @@ class OrderMealTest extends TestCase {
     /** @test */
     function an_empty_user_id_array_must_not_be_processed()
     {
+        $this->signIn();
+
         $meal = factory(Meal::class)->create();
 
         $this->postJson(route('orders.store'), [
@@ -68,6 +76,8 @@ class OrderMealTest extends TestCase {
     /** @test */
     function a_user_ids_of_array_must_exits_in_database()
     {
+        $this->signIn();
+
         $meal = factory(Meal::class)->create();
 
         $invalidUsers = [2, 3, 4];
@@ -87,11 +97,36 @@ class OrderMealTest extends TestCase {
     }
 
     /** @test */
+    function a_some_user_ids_of_array_must_exits_in_database()
+    {
+        $this->signIn();
+
+        $meal = factory(Meal::class)->create();
+
+        $invalidUsers = [2, 3, 4];
+
+        $response = $this->postJson(route('orders.store'), [
+            'meal_id' => $meal->id,
+            'user_id' => [2, 3, 4, auth()->id()],
+        ]);
+
+        $response->assertStatus(422);
+
+        foreach ($invalidUsers as $index => $id) {
+            $response->assertJsonValidationErrors("user_id.{$index}");
+        }
+
+        $this->assertEquals(0, Order::count());
+    }
+
+    /** @test */
     function a_meal_requires_quantity()
     {
         $meal = factory(Meal::class)->create();
 
         $users = factory(User::class, 3)->create();
+
+        $this->signIn($users->first());
 
         $this->postJson(route('orders.store'), [
             'meal_id' => $meal->id,
@@ -108,6 +143,8 @@ class OrderMealTest extends TestCase {
 
         $users = factory(User::class, 3)->create();
 
+        $this->signIn($users->first());
+
         $this->postJson(route('orders.store'), [
             'meal_id'  => $meal->id,
             'user_id'  => $users->pluck('id'),
@@ -123,6 +160,8 @@ class OrderMealTest extends TestCase {
         $meal = factory(Meal::class)->create();
 
         $users = factory(User::class, 3)->create();
+
+        $this->signIn($users->first());
 
         $this->postJson(route('orders.store'), [
             'meal_id'  => $meal->id,
@@ -154,6 +193,8 @@ class OrderMealTest extends TestCase {
 
         $users = factory(User::class, 3)->create();
 
+        $this->signIn($users->first());
+
         $this->postJson(route('orders.store'), [
             'meal_id'  => $meal->id,
             'user_id'  => $users->pluck('id'),
@@ -172,6 +213,8 @@ class OrderMealTest extends TestCase {
 
         /** @var Collection $users */
         $users = factory(User::class, 3)->create();
+
+        $this->signIn($users->first());
 
         $response = $this->postJson(route('orders.store'), [
             'meal_id'  => $meal->id,
@@ -200,6 +243,8 @@ class OrderMealTest extends TestCase {
         /** @var Collection $users */
         $users = factory(User::class, 3)->create();
 
+        $this->signIn($users->first());
+
         $this->postJson(route('orders.store'), [
             'meal_id'  => $meal->id,
             'user_id'  => $users->pluck('id'),
@@ -226,6 +271,8 @@ class OrderMealTest extends TestCase {
 
         /** @var Collection $users */
         $users = factory(User::class, 3)->create();
+
+        $this->signIn($users->first());
 
         $this->postJson(route('orders.store'), [
             'meal_id'  => $meal->id,
@@ -261,6 +308,8 @@ class OrderMealTest extends TestCase {
 
         /** @var Collection $users */
         $users = factory(User::class, 3)->create();
+
+        $this->signIn($users->first());
 
         $this->postJson(route('orders.store'), [
             'meal_id'  => $meal->id,
