@@ -7,4 +7,8 @@ Route::group(['middleware' => 'auth'], function() {
     Route::resource('orders', 'OrdersController')->only(['index', 'create','store', 'update', 'destroy']);
     Route::resource('payments', 'PaymentsController')->only(['store']);
     Route::get('/home', 'HomeController@index')->name('home');
+
+    Route::resource('meals/summery', 'MealsSummaryController')->names([
+        'index' => 'meals.summery.index'
+    ])->only(['index']);
 });

@@ -30,7 +30,7 @@ class User extends Authenticatable {
 
     public function oweTotal()
     {
-        return $this->orders()->get()->map(function (Order $order) {
+        return $this->orders->map(function (Order $order) {
             /** @var Order $order */
             $order['owes'] = $order->owes();
 
@@ -55,11 +55,11 @@ class User extends Authenticatable {
         /** @var Collection $orders */
         $orders = $this->orders()->forMeal($mealId)->get();
 
-        return $orders->map(function ($order) {
+        return round($orders->map(function ($order) {
             /** @var Order $order */
             $order['owes'] = $order->owes();
 
             return $order;
-        })->sum('owes');
+        })->sum('owes'), 2);
     }
 }
