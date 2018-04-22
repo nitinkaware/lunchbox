@@ -20,7 +20,7 @@ class User extends Authenticatable {
 
     public function orders()
     {
-        return $this->belongsToMany(Order::class)->withPivot('paid_at');
+        return $this->belongsToMany(Order::class);
     }
 
     public static function findByEmail($email)

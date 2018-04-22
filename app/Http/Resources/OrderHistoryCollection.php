@@ -32,7 +32,6 @@ class OrderHistoryCollection extends ResourceCollection {
                     'users'          => $order->users->pluck('name'),
                     'shared_between' => $order->users->pluck('name')->implode(', '),
                     'created_at'     => $order->created_at->diffForHumans(),
-                    'paid_at'        => $order->pivot->paid_at,
                 ];
             }),
             'oweTotal' => round(auth()->user()->oweTotal(), 2),

@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Meal extends Model {
-
+class Meal extends Model
+{
     protected $fillable = ['description', 'price'];
 
     public function orders()
@@ -17,7 +17,7 @@ class Meal extends Model {
     {
         $user = $user instanceof Model ? $user->getKey() : $user;
 
-        return self::whereHas('orders.users', function ($query) use ($user) {
+        return self::whereHas('orders.users', function ($query) use($user) {
             $query->where('users.id', $user);
         })->get();
     }

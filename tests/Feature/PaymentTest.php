@@ -54,28 +54,4 @@ class PaymentTest extends TestCase {
             'order_id' => [$order->id],
         ])->assertStatus(422)->assertJsonValidationErrors('order_id.0');
     }
-
-    /** @test */
-    function a_user_can_make_payment_for_a_order()
-    {
-        /** @var User $john */
-        $john = factory(User::class)->create();
-        $jeffery = factory(User::class)->create();
-
-        $this->actingAs($john);
-
-        /** @var Order $order */
-        $order = factory(Order::class)->create();
-        $order->users()->attach($john);
-        $order->users()->attach($jeffery);
-
-        $this->postJson(route('payments.store'), [
-            'order_id' => [$order->id],
-        ])->assertStatus(Response::HTTP_CREATED);
-
-
-        //Asset that only one column has been updated.
-        $this->assertEquals(1, $john->orders()->wherePivot('paid_at', '!=', null)->count());
-        $this->assertEquals(1, $jeffery->orders()->wherePivot('paid_at', '=', null)->count());
-    }
 }

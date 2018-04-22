@@ -16,7 +16,6 @@ class CreateOrderUserTable extends Migration {
         Schema::create('order_user', function (Blueprint $table) {
             $table->integer('order_id');
             $table->integer('user_id');
-            $table->dateTime('paid_at')->nullable();
         });
     }
 
