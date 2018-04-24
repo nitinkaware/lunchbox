@@ -27,11 +27,6 @@ class Order extends Model {
         return $this->belongsTo(Meal::class);
     }
 
-    public function scopeForMeal(Builder $query, $mealId)
-    {
-        $query->where('meal_id', $mealId);
-    }
-
     public function quantity(): int
     {
         return $this->quantity;
@@ -57,5 +52,10 @@ class Order extends Model {
             ($this->price() * $this->quantity()) / $this->shares(),
             2
         );
+    }
+
+    public function scopeForMeal(Builder $query, $mealId)
+    {
+        $query->where('meal_id', $mealId);
     }
 }

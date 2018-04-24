@@ -10,9 +10,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
-class CreateMeal implements ShouldQueue
-{
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+class CreateMeal implements ShouldQueue {
 
     /**
      * @var string
@@ -41,9 +39,9 @@ class CreateMeal implements ShouldQueue
 
     public function handle()
     {
-        return Meal::create([
-            'description'  => $this->description,
-            'price' => $this->price,
+        return auth()->user()->meals()->create([
+            'description' => $this->description,
+            'price'       => $this->price,
         ]);
     }
 }

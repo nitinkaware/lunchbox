@@ -44,4 +44,18 @@ class MealTest extends TestCase {
 
         $this->assertCount(2, Meal::orderedForUser($john));
     }
+    
+    /** @test */
+    function meal_belongs_to_user()
+    {
+        /** @var User $john */
+        $john = factory(User::class)->create();
+
+        /** @var Meal $meal */
+        $meal = factory(Meal::class)->create([
+            'user_id' => $john->id
+        ]);
+
+        $this->assertCount(1, $meal->user()->get());
+    }
 }

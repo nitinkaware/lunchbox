@@ -50588,10 +50588,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['meals'],
+    props: ['meals', 'paid'],
     data: function data() {
         return {};
     },
@@ -50600,8 +50602,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     computed: {
-        totalOwe: function totalOwe() {
+        orderAmount: function orderAmount() {
             return collect(this.meals).sum('owe');
+        },
+        totalPaid: function totalPaid() {
+            return this.paid;
+        },
+        totalOwe: function totalOwe() {
+            return collect(this.meals).sum('owe') - this.paid;
         }
     }
 });
@@ -50619,7 +50627,11 @@ var render = function() {
       _vm._m(0),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
-        _c("h3", [_vm._v("Total Pay: " + _vm._s(_vm.totalOwe))]),
+        _c("h3", [_vm._v("Total Order Amount: " + _vm._s(_vm.orderAmount))]),
+        _vm._v(" "),
+        _c("h3", [_vm._v("Total Paid: " + _vm._s(_vm.totalPaid))]),
+        _vm._v(" "),
+        _c("h3", [_vm._v("Total Owe: " + _vm._s(_vm.totalOwe))]),
         _vm._v(" "),
         _c("table", { staticClass: "table" }, [
           _vm._m(1),

@@ -3,7 +3,9 @@
         <div class="card">
             <div class="card-header"><strong>Meals Summary</strong></div>
             <div class="card-body">
-                <h3>Total Pay: {{ totalOwe }}</h3>
+                <h3>Total Order Amount: {{ orderAmount }}</h3>
+                <h3>Total Paid: {{ totalPaid }}</h3>
+                <h3>Total Owe: {{ totalOwe }}</h3>
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
@@ -28,7 +30,7 @@
 <script>
 
     export default {
-        props: ['meals'],
+        props: ['meals', 'paid'],
         data: function () {
             return {}
         },
@@ -36,8 +38,14 @@
             console.log(this.meals);
         },
         computed: {
-            totalOwe: function () {
+            orderAmount: function () {
                 return collect(this.meals).sum('owe');
+            },
+            totalPaid: function () {
+                return this.paid;
+            },
+            totalOwe: function () {
+                return collect(this.meals).sum('owe') - this.paid;
             }
         },
     }

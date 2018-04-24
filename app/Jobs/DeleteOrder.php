@@ -11,8 +11,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 class DeleteOrder implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     /**
      * @var Order
      */

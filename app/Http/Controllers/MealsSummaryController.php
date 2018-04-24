@@ -12,7 +12,9 @@ class MealsSummaryController extends Controller {
     {
         $mealsSummery = $this->getMealsSummary();
 
-        return view('meals.summary.index', compact('mealsSummery'));
+        $totalPaid = auth()->user()->totalAmountPaid();
+
+        return view('meals.summary.index', compact('mealsSummery', 'totalPaid'));
     }
 
     /**

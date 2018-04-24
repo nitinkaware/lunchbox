@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="col-md-10">
-                <meals-summary :meals="{{ $mealsSummery }}"></meals-summary>
+                <meals-summary :meals="{{ $mealsSummery }}" :paid="{{ $totalPaid }}"></meals-summary>
             </div>
         </div>
     </div>

@@ -78,7 +78,7 @@ class OrderMealTest extends TestCase {
     {
         $this->signIn();
 
-        $meal = factory(Meal::class)->create();
+        $meal = factory(Meal::class)->create(['user_id' => auth()->id()]);
 
         $invalidUsers = [2, 3, 4];
 
@@ -101,7 +101,7 @@ class OrderMealTest extends TestCase {
     {
         $this->signIn();
 
-        $meal = factory(Meal::class)->create();
+        $meal = factory(Meal::class)->create(['user_id' => auth()->id()]);
 
         $invalidUsers = [2, 3, 4];
 

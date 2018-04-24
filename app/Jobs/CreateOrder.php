@@ -14,8 +14,6 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 class CreateOrder implements ShouldQueue {
 
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
     /**
      * @var int
      */
