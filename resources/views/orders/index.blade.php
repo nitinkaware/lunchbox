@@ -4,13 +4,10 @@
     <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-md-2">
-                <div class="list-group">
-                    <a href="{{ route('orders.index') }}" class="list-group-item list-group-item-action @if(request()->routeIs('orders.index')) active @endif">Orders</a>
-                    <a href="{{ route('meals.summery.index') }}" class="list-group-item list-group-item-action @if(request()->routeIs('meals.summery.index')) active @endif">Meals Summery</a>
-                </div>
+                @include('layouts._sidebar')
             </div>
             <div class="col-md-10">
-                <orders></orders>
+                <orders :prop-orders="{{ json_encode($orders->toArray(request())) }}"></orders>
             </div>
         </div>
     </div>

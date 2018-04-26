@@ -121,7 +121,7 @@ class UserTest extends TestCase {
     }
 
     /** @test */
-    function payment_against_users_should_be_correct()
+    function payment_made_to_user_should_be_correct()
     {
         /** @var User $john */
         $john = factory(User::class)->create();
@@ -136,10 +136,10 @@ class UserTest extends TestCase {
         $soyaMeal = factory(Meal::class)->create(['user_id' => $soya, 'price' => $price]);
         $loyaMeal = factory(Meal::class)->create(['user_id' => $loya, 'price' => $price]);
 
-        factory(Order::class)->create(['price' => $price, 'meal_id' => $jefferyMeal])->users()->attach($john);
-        factory(Order::class)->create(['price' => $price, 'meal_id' => $jefferyMeal])->users()->attach($john);
-        factory(Order::class)->create(['price' => $price, 'meal_id' => $soyaMeal])->users()->attach($john);
-        factory(Order::class)->create(['price' => $price, 'meal_id' => $loyaMeal])->users()->attach($john);
+        factory(Order::class)->create(['price' => $price, 'quantity' => 1, 'meal_id' => $jefferyMeal])->users()->attach($john);
+        factory(Order::class)->create(['price' => $price, 'quantity' => 1, 'meal_id' => $jefferyMeal])->users()->attach($john);
+        factory(Order::class)->create(['price' => $price, 'quantity' => 1, 'meal_id' => $soyaMeal])->users()->attach($john);
+        factory(Order::class)->create(['price' => $price, 'quantity' => 1, 'meal_id' => $loyaMeal])->users()->attach($john);
 
         $john->payments()->create(['amount' => 140, 'to_user_id' => $jeffery->id]);
 
@@ -165,6 +165,26 @@ class UserTest extends TestCase {
         $john->payments()->create(['to_user_id' => $jeffery->id, 'amount' => 300]);
 
         $this->assertEquals(300, $john->amountPaidTo($jeffery));
+    }
+
+    /** @test */
+    function it_should_return_how_much_amount_I_owe_to_particular_user()
+    {
+        /** @var User $john */
+        $john = factory(User::class)->create();
+
+        $jeffery = factory(User::class)->create();
+
+        $price = 70;
+
+        $jefferyMeal = factory(Meal::class)->create(['user_id' => $jeffery, 'price' => $price]);
+
+        factory(Order::class)->create(['price' => $price, 'meal_id' => $jefferyMeal, 'quantity' => 1])->users()->attach($john);
+        factory(Order::class)->create(['price' => $price, 'meal_id' => $jefferyMeal, 'quantity' => 1])->users()->attach($john);
+
+        $john->payments()->create(['amount' => 100, 'to_user_id' => $jeffery->id]);
+
+        $this->assertEquals(40, $john->oweTo($jeffery));
     }
 
     /** @test */

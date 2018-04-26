@@ -16,8 +16,10 @@ class OrdersController extends Controller {
 
     public function index()
     {
+        $orders = $this->getOrders();
+
         if (request()->wantsJson()) {
-            return $this->getOrders();
+            return $orders;
         }
 
         return view('orders.index', compact('orders'));

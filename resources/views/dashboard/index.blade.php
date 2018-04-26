@@ -7,7 +7,7 @@
                 @include('layouts._sidebar')
             </div>
             <div class="col-md-10">
-                <meals-summary :meals="{{ $mealsSummery }}" :paid="{{ $totalPaid }}"></meals-summary>
+                <dashboard :users="{{ $users }}"></dashboard>
             </div>
         </div>
     </div>

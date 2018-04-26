@@ -34,7 +34,7 @@ class OrderHistoryCollection extends ResourceCollection {
                     'created_at'     => $order->created_at->diffForHumans(),
                 ];
             }),
-            'oweTotal' => round(auth()->user()->oweTotal(), 2),
+            'oweTotal' => round(auth()->user()->load('orders.users')->oweTotal(), 2),
             'users'     => User::all(),
             'meals'     => Meal::all(),
         ];

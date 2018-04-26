@@ -17,6 +17,9 @@ window.Vue = require('vue');
 Vue.component('orders', require('./components/OrderHistory.vue'));
 Vue.component('create-order', require('./components/CreateOrder.vue'));
 Vue.component('meals-summary', require('./components/MealsSummary.vue'));
+Vue.component('payments', require('./components/Payment.vue'));
+Vue.component('create-payment', require('./components/CreatePayment.vue'));
+Vue.component('dashboard', require('./components/Dashboard.vue'));
 
 const app = new Vue({
     el: '#app'

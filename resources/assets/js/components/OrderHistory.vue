@@ -41,6 +41,7 @@
     Vue.component('delete-order', DeleteOrder);
 
     export default {
+        props: ['propOrders'],
         data: function () {
             return {
                 orders: {},
@@ -51,7 +52,7 @@
             }
         },
         mounted() {
-            this.orders = this.getOrders();
+            this.init(this.propOrders);
         },
         created() {
             this.$root.$on('orderCreated', () => {
@@ -70,13 +71,16 @@
         methods: {
             getOrders(page = 1) {
                 axios.get(route('orders.index')).then((response) => {
-                    this.orders = response.data.data;
-                    this.meals = response.data.meals;
-                    this.users = response.data.users;
-                    this.oweTotal = response.data.oweTotal;
+                    this.init(response.data);
                 }).catch(function (error) {
                     console.log(error);
                 });
+            },
+            init(response) {
+                this.orders = response.data;
+                this.meals = response.meals;
+                this.users = response.users;
+                this.oweTotal = response.oweTotal;
             },
             create() {
                 this.creating = true;

@@ -42,7 +42,7 @@ class User extends Authenticatable {
             return $order;
         })->sum('owes');
 
-        return $owe - Payment::againstAll($this->id);
+        return $owe - $this->totalAmountPaid();
     }
 
     public function owesForOrder($orderId): float
@@ -60,7 +60,7 @@ class User extends Authenticatable {
         $mealId = $this->parseId($meal);
 
         /** @var Collection $orders */
-        $orders = $this->orders()->forMeal($mealId)->get();
+        $orders = $this->orders()->with('users')->forMeal($mealId)->get();
 
         return round($orders->map(function ($order) {
             /** @var Order $order */
@@ -70,16 +70,27 @@ class User extends Authenticatable {
         })->sum('owes'), 2);
     }
 
+    public function oweTo($userId): float
+    {
+        $userId = $this->parseId($userId);
+
+        $orderTotal = $this->orders()->with('users')->whereHas('meal', function ($query) use ($userId) {
+            $query->where('meals.user_id', $userId);
+        })->get()->each(function ($order) {
+            /** @var Order $order */
+            $order['owes'] = $order->owes();
+
+            return $order;
+        })->sum('owes');
+
+        return $orderTotal - $this->amountPaidTo($userId);
+    }
+
     public function owePayments(): Collection
     {
         return self::whereHas('meals.orders.users', function ($query) {
             $query->where('users.id', $this->getKey());
         })->get();
-    }
-
-    public static function findByEmail($email)
-    {
-        return self::where('email', $email)->firstOrFail();
     }
 
     public function amountPaidTo($toUser): float
@@ -92,5 +103,10 @@ class User extends Authenticatable {
     public function totalAmountPaid(): float
     {
         return $this->payments()->sum('amount');
+    }
+
+    public static function findByEmail($email)
+    {
+        return self::where('email', $email)->firstOrFail();
     }
 }

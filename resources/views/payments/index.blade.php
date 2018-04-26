@@ -7,7 +7,7 @@
                 @include('layouts._sidebar')
             </div>
             <div class="col-md-10">
-                <meals-summary :meals="{{ $mealsSummery }}" :paid="{{ $totalPaid }}"></meals-summary>
+                <payments :prop-payments="{{ $payments->toJson() }}"></payments>
             </div>
         </div>
     </div>
