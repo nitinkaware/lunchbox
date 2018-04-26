@@ -83,7 +83,7 @@ class User extends Authenticatable {
             return $order;
         })->sum('owes');
 
-        return $orderTotal - $this->amountPaidTo($userId);
+        return round($orderTotal - $this->amountPaidTo($userId), 2);
     }
 
     public function owePayments(): Collection
