@@ -14080,7 +14080,7 @@ e.target.composing||(t.search=e.target.value)}}}),t._v(" "),n("button",{directiv
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(18);
-module.exports = __webpack_require__(156);
+module.exports = __webpack_require__(159);
 
 
 /***/ }),
@@ -14108,7 +14108,7 @@ Vue.component('create-order', __webpack_require__(144));
 Vue.component('meals-summary', __webpack_require__(147));
 Vue.component('payments', __webpack_require__(150));
 Vue.component('create-payment', __webpack_require__(153));
-Vue.component('dashboard', __webpack_require__(161));
+Vue.component('dashboard', __webpack_require__(156));
 
 var app = new Vue({
   el: '#app'
@@ -51165,24 +51165,14 @@ if (false) {
 
 /***/ }),
 /* 156 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 157 */,
-/* 158 */,
-/* 159 */,
-/* 160 */,
-/* 161 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
 var normalizeComponent = __webpack_require__(2)
 /* script */
-var __vue_script__ = __webpack_require__(162)
+var __vue_script__ = __webpack_require__(157)
 /* template */
-var __vue_template__ = __webpack_require__(163)
+var __vue_template__ = __webpack_require__(158)
 /* template functional */
 var __vue_template_functional__ = false
 /* styles */
@@ -51221,7 +51211,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 162 */
+/* 157 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -51254,7 +51244,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 163 */
+/* 158 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var render = function() {
@@ -51305,6 +51295,12 @@ if (false) {
     require("vue-hot-reload-api")      .rerender("data-v-1f65406d", module.exports)
   }
 }
+
+/***/ }),
+/* 159 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);

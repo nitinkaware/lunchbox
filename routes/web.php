@@ -2,6 +2,8 @@
 
 Auth::routes();
 
+Route::redirect('/', '/login');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('dashboard', 'DashboardController')->only(['index']);
     Route::resource('meals', 'MealsController')->only(['store', 'update']);
