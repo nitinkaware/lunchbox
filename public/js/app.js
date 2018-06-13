@@ -50610,13 +50610,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         orderAmount: function orderAmount() {
-            return collect(this.meals).sum('owe');
+            return collect(this.meals).sum('owe').toFixed(2);
         },
         totalPaid: function totalPaid() {
             return this.paid;
         },
         totalOwe: function totalOwe() {
-            return collect(this.meals).sum('owe') - this.paid;
+            return (collect(this.meals).sum('owe') - this.paid).toFixed(2);
         }
     }
 });

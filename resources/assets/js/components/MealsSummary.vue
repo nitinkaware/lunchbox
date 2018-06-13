@@ -39,13 +39,13 @@
         },
         computed: {
             orderAmount: function () {
-                return collect(this.meals).sum('owe');
+                return collect(this.meals).sum('owe').toFixed(2);
             },
             totalPaid: function () {
                 return this.paid;
             },
             totalOwe: function () {
-                return collect(this.meals).sum('owe') - this.paid;
+                return (collect(this.meals).sum('owe') - this.paid).toFixed(2);
             }
         },
     }
