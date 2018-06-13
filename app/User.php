@@ -102,7 +102,7 @@ class User extends Authenticatable {
 
     public function totalAmountPaid(): float
     {
-        return $this->payments()->sum('amount');
+        return round($this->payments()->sum('amount'), 2);
     }
 
     public static function findByEmail($email)
